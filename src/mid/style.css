@@ -1,5 +1,6 @@
 html {
   background-color: black;
+  overflow-x: clip;
 }
 
 body {
@@ -11,7 +12,9 @@ body {
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  margin: 31px clamp(10px, 5.7vw, 82px);
+  container-type: inline-size;
+  margin: 31px clamp(20px, 5.7vw, 82px);
+  min-height: calc(100vh - 62px);
   z-index: 1;
   background-color: #92cdeb;
 }
@@ -20,12 +23,13 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 1fr auto;
+  min-height: calc(100vh - 62px);
   width: 100%;
   gap: 20px;
 }
 
 .title-group {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
@@ -48,6 +52,9 @@ body {
 .top-line {
   width: 100%;
   height: 20px;
+  min-height: 20px;
+  max-height: 20px;
+  flex: 0 0 20px;
   box-sizing: border-box;
   background-color: black;
   margin-top: 20px;
@@ -85,6 +92,9 @@ body {
 
 .text-area {
   flex: 1;
+  min-width: 0;
+  margin-top: 0;
+  container-type: inline-size;
 }
 
 .country {
@@ -95,6 +105,7 @@ body {
 .info-box {
   background-color: black;
   padding: 15px;
+  margin-top: max(-1.74vw, -25px);
   width: 100%;
   box-sizing: border-box;
 }
@@ -103,6 +114,7 @@ body {
   color: #92cdeb;
   margin: 0;
   font-size: clamp(65px, 4.57vw, 75px);
+  white-space: nowrap;
 }
 
 .city {
@@ -110,6 +122,7 @@ body {
   margin: 0;
   margin-top: -5px;
   font-size: clamp(35px, 2.44vw, 40px);
+  white-space: nowrap;
 }
 
 .featuring {
@@ -133,6 +146,7 @@ body {
 .guest {
   font-weight: 600;
   font-size: clamp(20px, 2.13vw, 35px);
+  white-space: nowrap;
   margin-top: 0;
 }
 
@@ -147,7 +161,27 @@ body {
   font-size: clamp(98px, 6.7vw, 110px);
   font-weight: 1000;
   margin-inline: 10px;
+  white-space: nowrap;
 }
+
+/* 1440px 이하 */
+
+@media screen and (max-width: 1440px) {
+  .info-box {
+    width: 100%;
+  }
+
+  .place,
+  .city,
+  .country,
+  .guest,
+  .date {
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+/* 768px 이하 */
 
 @media screen and (max-width: 768px) {
   .box {
@@ -157,6 +191,8 @@ body {
   .poster {
     width: 100%;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
     min-height: calc(100vh - 62px);
     align-items: stretch;
   }
@@ -179,6 +215,9 @@ body {
   .top-line {
     width: 100%;
     height: 15px;
+    min-height: 15px;
+    max-height: 15px;
+    flex: 0 0 15px;
   }
 
   .photo-text {
@@ -210,6 +249,7 @@ body {
   }
 
   .country {
+    grid-area: country;
     margin-left: 10px;
     margin-top: 10px;
     font-size: 22px;
@@ -220,6 +260,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
 
   .featuring {
@@ -247,6 +288,9 @@ body {
     grid-area: guest;
     font-size: clamp(26px, 5cqw, 30px);
     margin-top: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
     max-width: 100%;
     box-sizing: border-box;
   }
@@ -280,6 +324,8 @@ body {
     text-align: center;
   }
 }
+
+/* 375px 이하 */
 
 @media screen and (max-width: 375px) {
   .top-line {
